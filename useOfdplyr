@@ -1,36 +1,36 @@
-## Today's lesson is about use of main five functions that could be useful even with other data frame backends
+# Today's lesson is about use of main five functions that could be useful even with other data frame backends
 data(mtcars)
 library("dplyr")
 
-## a special command that gives us more compact and informative tables
+# a special command that gives us more compact and informative tables
 new_df <- tbl_df(mtcars)
 
 
-## select : is a functio that allows us to subset a column
-## One of the properties of 'dplyr' verbs is that the first argument being passed is the data frame we are dealing with
-## to subset 'cyl' and 'hp' columns; newly created columns will be ordered same as you pass them in select()
+# select : is a functio that allows us to subset a column
+# One of the properties of 'dplyr' verbs is that the first argument being passed is the data frame we are dealing with
+# to subset 'cyl' and 'hp' columns; newly created columns will be ordered same as you pass them in select()
 select(new_df, cyl, hp)
-## to select 'mpg' through 'hp'
+# to select 'mpg' through 'hp'
 select(new_df, mpg:hp)
-## to select all columns except a set of columns 'mpg' through 'hp'
+# to select all columns except a set of columns 'mpg' through 'hp'
 select(new_df, -(mpg:hp))
 
-## filter : is a function to subset certain rows based on condition we pass into it
-## multiple conditions can be used
-## comma between conditions can be interpreted as 'AND'
+# filter : is a function to subset certain rows based on condition we pass into it
+# multiple conditions can be used
+# comma between conditions can be interpreted as 'AND'
 filter(new_df, cyl == 4, hp >= 200)
-## if you want to see if there is any missing value
-## keep in mind that the second argument of filter function is logical vector.
+# if you want to see if there is any missing value
+# keep in mind that the second argument of filter function is logical vector.
 filter(new_df, !is.na(cyl))
 
-## arrange : is to order the table by variable
+# arrange : is to order the table by variable
 arrange(new_df, cyl, desc(mpg), hp)
 
-## mutate : creates and add a new variable
-## you don't need to use $ sign, you just need to pass the name of variable you would like to create and assign a value to it
+# mutate : creates and add a new variable
+# you don't need to use $ sign, you just need to pass the name of variable you would like to create and assign a value to it
 mutate(new_df, hp_trend = hp - mean(hp))
-## you can also have more than one operation
+# you can also have more than one operation
 mutate(new_df, hp_trend = hp - mean(hp), trend2 = hp_trend - 30)
 
-## summarize : collapses the data set to a single row
+# summarize : collapses the data set to a single row
 summarize(new_df, avg_hp = mean(hp), avg_mpg = mean(mpg))
